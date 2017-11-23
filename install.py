@@ -43,12 +43,12 @@ f = open(fileout,'w')
 f.write(newdata)
 f.close()
 ##########################################################################
-docker_run("-e LICENSE=accept  -v \"$(pwd)\":/data ibmcom/icp-inception:2.1.0 cp -r cluster /data")
+docker_run("-e LICENSE=accept  -v \"$(pwd)\":/data ibmcom/icp-inception:2.1.0-ee cp -r cluster /data")
 
 copy("/root/.ssh/id_rsa", "/root/cluster/ssh_key")
 copy("/root/servers/hosts", "/root/cluster/hosts")
 play_book("/root/servers/hosts.yml", "/root/inventory")
 play_book("/root/servers/config_prereq.yml", "/root/inventory")
 
-docker_run("-e LICENSE=accept --net=host  -t -v \"$(pwd)/cluster\":/installer/cluster ibmcom/icp-inception:2.1.0 install")
+docker_run("-e LICENSE=accept --net=host  -t -v \"$(pwd)/cluster\":/installer/cluster ibmcom/icp-inception:2.1.0-ee install")
 
